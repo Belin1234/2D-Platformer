@@ -45,7 +45,7 @@ bool Player::Start() {
 	/*currentAnimation = &idle;*/
 
 	// L08 TODO 5: Add physics to the player - initialize physics body
-	pbody = Engine::GetInstance().physics.get()->CreateCircle((int)position.getX(), (int)position.getY(), texW / 2, bodyType::DYNAMIC);
+	pbody = Engine::GetInstance().physics.get()->CreateCircle((int)position.getX(), (int)position.getY(), texW / 2 - 2, bodyType::DYNAMIC);
 
 	// L08 TODO 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -91,7 +91,7 @@ bool Player::Update(float dt)
 	
 	// Move left
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
-		velocity.x = -0.15 * dt;
+		velocity.x = -0.17 * dt;
 
 		lookRight = false;
 
@@ -100,6 +100,20 @@ bool Player::Update(float dt)
 			currentAnimation = &runL;
 		}
 		
+	}
+
+	// Move right
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
+		velocity.x = 0.17 * dt;
+
+		lookRight = true;
+
+		if (lookRight) {
+
+			currentAnimation = &run;
+		}
+
+
 	}
 
 	// Dies and respawns
@@ -112,7 +126,11 @@ bool Player::Update(float dt)
 			if (lookRight) {
 				
 				currentAnimation = &die;
-				if (currentAnimation->HasFinished()) {
+				if (currentAnimation->currentFrame >= 1) {
+					
+					currentAnimation->Reset();
+					
+					LOG("TOOOOOOOOOONTOOOOOOOO");
 					
 					dead = false;
 
@@ -134,23 +152,6 @@ bool Player::Update(float dt)
 		}
 	}
 
-	
-	
-	// Move right
-	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
-		velocity.x = 0.15 * dt;
-		
-		lookRight = true;
-
-		if (lookRight) {
-
-			currentAnimation = &run;
-		}
-		
-		
-	}
-	
-	
 
 	// Jump
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !godmode && !dead) {
