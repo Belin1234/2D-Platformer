@@ -41,6 +41,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Gets dt
+	float GetDt() const {
+		return dt;
+	}
+
 	// Checks the value of vsync
 	std::string VsyncEnabled(bool v);
 

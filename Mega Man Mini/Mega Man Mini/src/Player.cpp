@@ -91,7 +91,7 @@ bool Player::Update(float dt)
 	
 	// Move left
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
-		velocity.x = -0.17 * dt;
+		velocity.x = -0.17 * 16;
 
 		lookRight = false;
 
@@ -104,7 +104,7 @@ bool Player::Update(float dt)
 
 	// Move right
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
-		velocity.x = 0.17 * dt;
+		velocity.x = 0.17 * 16;
 
 		lookRight = true;
 
@@ -130,6 +130,7 @@ bool Player::Update(float dt)
 
 
 			currentAnimation = &die;
+
 			if (currentAnimation->loopCount > 0) {
 				
 				currentAnimation->loopCount = 0;
@@ -141,11 +142,10 @@ bool Player::Update(float dt)
 
 		}
 
-
-
 		else if (!lookRight) {
 
 			currentAnimation = &dieL;
+
 			if (currentAnimation->loopCount > 0) {
 
 				currentAnimation->loopCount = 0;
@@ -154,8 +154,8 @@ bool Player::Update(float dt)
 				dead = false;	
 
 			}
-		}
-		
+
+		}	
 	}
 
 
@@ -196,18 +196,18 @@ bool Player::Update(float dt)
 		velocity = b2Vec2(0, 0);
 		
 		if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			velocity.x = -0.2 * dt;
+			velocity.x = -0.2 * 16;
 		}
 		
 		if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			velocity.x = 0.2 * dt;
+			velocity.x = 0.2 * 16;
 		}
 
 		if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			velocity.y = 0.2 * dt;
+			velocity.y = 0.2 * 16;
 		}
 		if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			velocity.y = -0.2 * dt;
+			velocity.y = -0.2 * 16;
 		}
 
 	

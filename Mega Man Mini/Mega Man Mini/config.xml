@@ -36,7 +36,7 @@
 			  </idleL>
 
 
-			  <run  loop="true" speed ="0.09">
+			  <run  loop="true" speed ="0.23">
 				  <frame x="0" y="80" w="32" h="35"/>
 				  <frame x="32" y="80" w="32" h="35"/>
 				  <frame x="64" y="80" w="32" h="35"/>
@@ -50,7 +50,7 @@
 				  <frame x="320" y="80" w="32" h="35"/>
 			  </run>
 
-			  <runL  loop="true" speed ="0.09">
+			  <runL  loop="true" speed ="0.23">
 
 				  <frame x="320" y="115" w="32" h="35"/>
 				  <frame x="288" y="115" w="32" h="35"/>
@@ -65,7 +65,7 @@
 				  <frame x="0" y="115" w="32" h="35"/>
 			  </runL>
 
-			  <jump  loop="true" speed ="0.06">
+			  <jump  loop="true" speed ="0.17">
 				  <frame x="0" y="34" w="32" h="46"/>
 				  <frame x="32" y="34" w="32" h="46"/>
 				  <frame x="64" y="34" w="32" h="46"/>
@@ -75,7 +75,7 @@
 
 
 			  </jump>
-			  <jumpL  loop="true" speed ="0.06">
+			  <jumpL  loop="true" speed ="0.17">
 				  <frame x="352" y="34" w="32" h="46"/>
 				  <frame x="320" y="34" w="32" h="46"/>
 				  <frame x="288" y="34" w="32" h="46"/>
@@ -84,13 +84,13 @@
 				  <frame x="192" y="34" w="32" h="46"/>
 			  </jumpL>
 
-			  <die  loop="true" speed ="0.06">
+			  <die  loop="true" speed ="0.1">
 				  <frame x="0" y="150" w="32" h="36"/>
 				  <frame x="32" y="150" w="32" h="36"/>
 				  <frame x="64" y="150" w="35" h="36"/>
 
 			  </die>
-			  <dieL  loop="true" speed ="0.06">
+			  <dieL  loop="true" speed ="0.1">
 				  <frame x="166" y="150" w="32" h="36"/>
 				  <frame x="134" y="150" w="32" h="36"/>
 				  <frame x="99" y="150" w="35" h="36"/>
