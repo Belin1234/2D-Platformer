@@ -84,13 +84,13 @@
 				  <frame x="192" y="34" w="32" h="46"/>
 			  </jumpL>
 
-			  <die  loop="false" speed ="0.06">
+			  <die  loop="true" speed ="0.06">
 				  <frame x="0" y="150" w="32" h="36"/>
 				  <frame x="32" y="150" w="32" h="36"/>
 				  <frame x="64" y="150" w="35" h="36"/>
 
 			  </die>
-			  <dieL  loop="false" speed ="0.06">
+			  <dieL  loop="true" speed ="0.06">
 				  <frame x="166" y="150" w="32" h="36"/>
 				  <frame x="134" y="150" w="32" h="36"/>
 				  <frame x="99" y="150" w="35" h="36"/>

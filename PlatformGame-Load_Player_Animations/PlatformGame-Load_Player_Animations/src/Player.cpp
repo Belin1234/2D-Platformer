@@ -120,34 +120,39 @@ bool Player::Update(float dt)
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
 
 		dead = true;
+		
+	}
 
-		if (dead) {
+	if (dead) {
 
-			if (lookRight) {
+		if (lookRight) {
+
+
+
+			currentAnimation = &die;
+			if (currentAnimation->loopCount > 0) {
 				
-				currentAnimation = &die;
-				if (currentAnimation->currentFrame >= 1) {
-					
-					currentAnimation->Reset();
-					
-					LOG("TOOOOOOOOOONTOOOOOOOO");
-					
-					dead = false;
+				currentAnimation->loopCount = 0;
 
-					pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
-				}
-				
+				pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(465)), 0);
+				dead = false;
+
 
 			}
 
-			else if (!lookRight) {
+		}
 
-				if (currentAnimation->currentFrame == 2) {
+		else if (!lookRight) {
 
-					dead = false;
+			currentAnimation = &dieL;
+			if (currentAnimation->loopCount > 0) {
 
-					pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
-				}
+				currentAnimation->loopCount = 0;
+
+				pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(465)), 0);
+				dead = false;
+
+
 			}
 		}
 	}
@@ -222,7 +227,7 @@ bool Player::Update(float dt)
 	if (position.getY() > 768 && !godmode) {
 		
 		
-		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(465)), 0);
 
 	}
 
