@@ -4,7 +4,7 @@
 #include "Vector2D.h"
 #include "SDL2/SDL.h"
 
-#define VSYNC true
+#define VSYNC false
 
 class Render : public Module
 {

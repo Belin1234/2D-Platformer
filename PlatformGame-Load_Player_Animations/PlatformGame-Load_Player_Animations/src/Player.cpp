@@ -56,6 +56,9 @@ bool Player::Start() {
 	//initialize audio effect
 	pickCoinFxId = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
+	//
+	dead = false;
+
 	// God Mode desactivated first
 	godmode = false;
 	
@@ -76,40 +79,18 @@ bool Player::Update(float dt)
 	}
 	
 
-	if (lookRight) {
+	if (lookRight && !dead) {
 
 		currentAnimation = &idle;
 	}
 
-	if(!lookRight) {
+	if(!lookRight && !dead) {
 
 		currentAnimation = &idleL;
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Quiero que al acabar de hacer el loop pero solo uno, respawnee en estado de idle
-	// Pero si pones false en el loop de config lo hace pero se queda el ultimo frame si lo vuelves a repetir cunado respawneas
-	// Dies and respawns
-	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_T) == KEY_REPEAT) {
-
-		if (lookRight) {
-
-			
-			currentAnimation = &die;
-			
-			
-			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
-		}
-		else if (!lookRight) {
-			
-			currentAnimation = &dieL;
-
-			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
-		}
-	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Move left
-	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		velocity.x = -0.15 * dt;
 
 		lookRight = false;
@@ -120,9 +101,43 @@ bool Player::Update(float dt)
 		}
 		
 	}
+
+	// Dies and respawns
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+
+		dead = true;
+
+		if (dead) {
+
+			if (lookRight) {
+				
+				currentAnimation = &die;
+				if (currentAnimation->HasFinished()) {
+					
+					dead = false;
+
+					pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
+				}
+				
+
+			}
+
+			else if (!lookRight) {
+
+				if (currentAnimation->currentFrame == 2) {
+
+					dead = false;
+
+					pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(450)), 0);
+				}
+			}
+		}
+	}
+
+	
 	
 	// Move right
-	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		velocity.x = 0.15 * dt;
 		
 		lookRight = true;
@@ -138,14 +153,14 @@ bool Player::Update(float dt)
 	
 
 	// Jump
-	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !godmode) {
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !godmode && !dead) {
 		// Apply an initial upward force
 		pbody->body->ApplyLinearImpulseToCenter(b2Vec2(0, -jumpForce), true);
 		isJumping = true;
 	}
 
 	// If the player is jumpling, we don't want to apply gravity, we use the current velocity prduced by the jump
-	if (isJumping == true && !godmode)
+	if (isJumping == true && !godmode && !dead)
 	{
 		if (lookRight) {
 			currentAnimation = &jump;

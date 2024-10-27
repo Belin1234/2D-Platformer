@@ -58,6 +58,7 @@ public:
 	Animation die;
 	Animation dieL;
 
+	bool dead;
 
 	bool lookRight;
 
