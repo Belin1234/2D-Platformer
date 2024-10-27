@@ -7,7 +7,7 @@
   </engine>
 
   <render>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </render>
 
   <window>

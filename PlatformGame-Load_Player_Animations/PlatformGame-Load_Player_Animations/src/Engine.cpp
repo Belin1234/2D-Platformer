@@ -85,10 +85,8 @@ bool Engine::Awake() {
     gameTitle = configFile.child("config").child("engine").child("title").child_value();
     maxFrameDuration = configFile.child("config").child("engine").child("maxFrameDuration").attribute("value").as_int();
     
-    //////////////////////////////////////////////////////////////////////////////////////
-    // No pilla bien el valor de value de vsync en config
-    vsyncOption = configFile.child("config").child("vsync").attribute("value").as_bool();
-    ///////////////////////////////////////////////////////////////////////////////////////
+    // Gets vsync option
+    vsyncOption = GetInstance().render.get()->vsyncOpt;
 
     // False because we want 60 fps as default
     capFps = false;
@@ -236,7 +234,7 @@ void Engine::FinishUpdate()
         << " Last dt: " << std::fixed << std::setprecision(3) << dt
         << " Time since startup: " << secondsSinceStartup
         << " Frame Count: " << frameCount
-        << " Vsync: " << VsyncEnabled(vsyncOption); // No pilla el true 
+        << "  Vsync: " << VsyncEnabled(vsyncOption); 
 
    
     
@@ -312,8 +310,7 @@ bool Engine::LoadConfig()
 
     return ret;
 }
-/////////////////////////////////////////////////////////////////
-// No va el true osea que donde pilla el valor de v esta mal porque sí entra en el condicional
+
 // Checks if Vsync is enabled or not and returns a string  
 std::string Engine::VsyncEnabled(bool v) {
 
@@ -330,4 +327,4 @@ std::string Engine::VsyncEnabled(bool v) {
             
     }
 }
-////////////////////////////////////////////////////////////////////
+

@@ -63,63 +63,28 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	//L03 TODO 3: Make the 
-	// era movement independent of framerate
+	// movement independent of framerate
 	float camSpeed = 1;
-
-	/*if(Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		Engine::GetInstance().render.get()->camera.y -= ceil(camSpeed * dt);
-
-	if(Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		Engine::GetInstance().render.get()->camera.y += ceil(camSpeed * dt);
-
-	if(Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		Engine::GetInstance().render.get()->camera.x -= ceil(camSpeed * dt);
-
-	if(Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		Engine::GetInstance().render.get()->camera.x += ceil(camSpeed * dt);*/
-	
 	
 	Engine::GetInstance().render.get()->camera.x = (Engine::GetInstance().window->width/2 - player->position.getX());
 	
-	
-		//int width, height;
-		//Engine::GetInstance().textures->GetSize(helpMenuTexture, width, height);
-		//int windowWidth, windowHeight;
-		//Engine::GetInstance().window->GetWindowSize(windowWidth, windowHeight);
-
-		////Imagen en la esquina superior derecha
-		//SDL_Rect dstRect = { windowWidth - width - 10, 10, width, height };
-		////Imagen en el centro de la pantalla
-		////SDL_Rect dstRect = { (windowWidth - width) / 2, (windowHeight - height) / 2, width, height };
-
-		
-
-	/*DrawText("Hola, raylib!", 190, 200, 20, DARKGRAY);*/
-	/////////////////////////////////////////////////////////////////////
-	// Peta por el &destRect pero no se como pasarle los parametros
+	// Help Menu
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 		help = !help;
 
 	}
-	
 	if (help) {
 	
 		int width, height;
 		Engine::GetInstance().textures->GetSize(helpMenu, width, height);
 		SDL_Rect dstRect = { 0, 0, width, height };
-
+		
+		// Crea la forma del rectangulo donde estara la textura
 		SDL_RenderCopy(Engine::GetInstance().render->renderer, helpMenu, nullptr, &dstRect);
-		//// Crea la forma del rectangulo donde estara la textura
-		//SDL_Rect destRect = {
-		//	(Engine::GetInstance().render.get()->camera.x),  // Posición x
-		//	(Engine::GetInstance().render.get()->camera.y),  // Posición y
-		//	(Engine::GetInstance().window.get()->width),     // Ancho
-		//	(Engine::GetInstance().window.get()->height)     // Alto
-		//};
-
-		//Engine::GetInstance().render.get()->DrawTexture(helpMenu,0,0, &destRect, 0.0f, 0.0, 1,1);
+		
+		
 	}
-	//////////////////////////////////////////////////////////////////
+	
 	return true;
 }
 

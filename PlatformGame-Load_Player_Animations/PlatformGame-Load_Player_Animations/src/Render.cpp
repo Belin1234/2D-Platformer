@@ -3,7 +3,7 @@
 #include "Render.h"
 #include "Log.h"
 
-#define VSYNC true
+
 
 Render::Render() : Module()
 {
