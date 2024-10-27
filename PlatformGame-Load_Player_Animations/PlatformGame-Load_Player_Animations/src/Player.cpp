@@ -123,10 +123,10 @@ bool Player::Update(float dt)
 		
 	}
 
+	// After doing the dead animation respawns on the start 
 	if (dead) {
 
 		if (lookRight) {
-
 
 
 			currentAnimation = &die;
@@ -137,10 +137,11 @@ bool Player::Update(float dt)
 				pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(465)), 0);
 				dead = false;
 
-
 			}
 
 		}
+
+
 
 		else if (!lookRight) {
 
@@ -150,11 +151,11 @@ bool Player::Update(float dt)
 				currentAnimation->loopCount = 0;
 
 				pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(100), PIXEL_TO_METERS(465)), 0);
-				dead = false;
-
+				dead = false;	
 
 			}
 		}
+		
 	}
 
 
