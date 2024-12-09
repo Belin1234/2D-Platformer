@@ -61,4 +61,4 @@ This game is inspired by Mega Man video games; it’s a platformer where you mus
  - Pathfinding: The enemies have a idle state and when it detects the player, the enemy starts moving towards to the player position.
  - Load and save: It saves the player’s position.
  - Music and sounds effects: Added music to level, sound effects of attacking and death.
- 
+ - Final level: When the player arrives at the end sound is heard and closes automatically
