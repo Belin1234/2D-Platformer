@@ -37,9 +37,14 @@ This game is inspired by Mega Man video games; it’s a platformer where you mus
  - Key up -> move up in god mode
  - Key down -> move down god mode
  - H -> Show/ hides the help menu with debug controls.
+ - F1 -> Beginning of the first level.
+ - F3 -> Beginning of the current level.
+ - F5 -> Save.
+ - F6 -> Load.
  - F9 -> Displays the colliders/ game logic.
  - F10 -> Activates " God Mode".
  - F11 -> Enables/ disables FPS cap at 30.
+   
  
 ## Features implemented
  - Follow Camera: The camera follows the main character troughout the map.
@@ -51,4 +56,8 @@ This game is inspired by Mega Man video games; it’s a platformer where you mus
  - FPS Optimization :The game maintains a stable cap of 60 FPS without vsync, and the window displays current FPS, average 
                      FPS, and ms per frame
  - Normalized Movement: All game movement is normalized using deltaTime, ensuring the same movement speed across different CPU speeds.
+ - Enemics: There are flying enemies and walking enemis.
+ - Pathfinding: The enemies have a idle state and when it detects the player, the enemy starts moving towards to the player position.
+ - Load and save: It saves the player’s position.
+ - Music and sounds effects: Added music to level, sound effects of attacking and death.
  
