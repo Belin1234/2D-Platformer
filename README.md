@@ -38,10 +38,14 @@ This game is inspired by Mega Man video games; it’s a platformer where you mus
  - Key down -> move down god mode
  - H -> Show/ hides the help menu with debug controls.
  - E -> Punch.
+ - F -> Shoot.
+ - Esc -> Pause.
  - F1 -> Beginning of the first level.
  - F3 -> Beginning of the current level.
  - F5 -> Save.
  - F6 -> Load.
+ - F7 -> Next checkpoint.
+ - F8 -> Gui state.
  - F9 -> Displays the colliders/ game logic.
  - F10 -> Activates " God Mode".
  - F11 -> Enables/ disables FPS cap at 30.
@@ -62,3 +66,13 @@ This game is inspired by Mega Man video games; it’s a platformer where you mus
  - Load and save: It saves the player’s position.
  - Music and sounds effects: Added music to level, sound effects of attacking and death.
  - Final level: When the player arrives at the end sound is heard and closes automatically
+ - Add Gui screen and make them functional:
+    - Intro screen.
+    - Title screen
+    - Gameplay HUD
+    - Screen pause menu
+    - Die screen
+    - End screen/ Level completed
+ - Shots: Attack to shoot enemies.
+ - Game items: Grab different objects to refill your shooting ammunition, increase your life or 
+   get points.
