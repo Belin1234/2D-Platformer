@@ -11,7 +11,7 @@
 
 PointsContainer::PointsContainer() : Entity(EntityType::POINTS_CONTAINER)
 {
-	/*name = "LifeCharger";*/
+
 }
 
 PointsContainer::~PointsContainer() {}
@@ -63,7 +63,6 @@ bool PointsContainer::CleanUp()
 {
 	Engine::GetInstance().physics.get()->DeletePhysBody(pbody);
 	Engine::GetInstance().textures.get()->UnLoad(texture);
-	//Engine::GetInstance().entityManager.get()->DestroyEntity(this);
 
 	return true;
 }
@@ -71,7 +70,6 @@ bool PointsContainer::CleanUp()
 void PointsContainer::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	if (physB->ctype == ColliderType::PLAYER) {
-		//Engine::GetInstance().textures.get()->UnLoad(texture);
 		CleanUp();
 	}
 

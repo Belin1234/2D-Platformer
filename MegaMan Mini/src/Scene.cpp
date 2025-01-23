@@ -104,10 +104,8 @@ bool Scene::Awake()
 
 	for (pugi::xml_node bulletNode = configParameters.child("entities").child("projectiles").child("bullet"); bulletNode; bulletNode = bulletNode.next_sibling("bullet"))
 	{
-		// MetallC15 enemy creation
-		bulletConfig = bulletNode;
-	/*	std::string(bulletNode.attribute("name").as_string()) == "bullet"*/
 
+		bulletConfig = bulletNode;
 
 	}
 
@@ -280,17 +278,14 @@ bool Scene::Update(float dt)
 	lastTick = currentTick;
 
 	switch (state) {
-	
+
 	case INTRO:
 
-		
-		/*int width, height;*/
+
 		Engine::GetInstance().textures->GetSize(introScreen, width, height);
 		dstRect = { 0, 0, width, height };
 		SDL_RenderCopy(Engine::GetInstance().render->renderer, introScreen, nullptr, &dstRect);
-		//if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		//	activationPreparationTimer = true;
-		//}
+
 		if (activationPreparationTimer) {
 			preparationTimer -= deltaTime;
 
@@ -309,7 +304,7 @@ bool Scene::Update(float dt)
 				guiBt2->state = GuiControlState::DISABLED;
 				guiBt2->textureOnDisabled = true;
 			}
-			
+
 			guiBt3->state = GuiControlState::NORMAL;
 			guiBt4->state = GuiControlState::NORMAL;
 			guiBt5->state = GuiControlState::NORMAL;
@@ -320,7 +315,6 @@ bool Scene::Update(float dt)
 		break;
 	case MENU:
 
-		/*int width, height;*/
 		Engine::GetInstance().textures->GetSize(menuScreen, width, height);
 		dstRect = { 0, 0, width, height };
 		SDL_RenderCopy(Engine::GetInstance().render->renderer, menuScreen, nullptr, &dstRect);
@@ -328,7 +322,7 @@ bool Scene::Update(float dt)
 
 		// SETTINGS
 		if (activationSettings && !changedButtons1 && !activationCredits) {
-			/*int width, height;*/
+
 			guiBt1->state = GuiControlState::DISABLED;
 			guiBt2->state = GuiControlState::DISABLED;
 			guiBt2->textureOnDisabled = false;
@@ -336,7 +330,6 @@ bool Scene::Update(float dt)
 			guiBt4->state = GuiControlState::DISABLED;
 			guiBt5->state = GuiControlState::DISABLED;
 
-			// botones nuevos en normal
 			guiCh->state = GuiControlState::NORMAL;
 			guiSl1->state = GuiControlState::NORMAL;
 			guiSl2->state = GuiControlState::NORMAL;
@@ -361,8 +354,7 @@ bool Scene::Update(float dt)
 			guiBt3->state = GuiControlState::NORMAL;
 			guiBt4->state = GuiControlState::NORMAL;
 			guiBt5->state = GuiControlState::NORMAL;
-			
-			// cambio de botones
+
 			guiCh->state = GuiControlState::DISABLED;
 			guiSl1->state = GuiControlState::DISABLED;
 			guiSl2->state = GuiControlState::DISABLED;
@@ -372,7 +364,7 @@ bool Scene::Update(float dt)
 
 		// CREDITS
 		if (activationCredits && !changedButtons1 && !activationSettings) {
-			/*int width, height;*/
+
 			guiBt1->state = GuiControlState::DISABLED;
 			guiBt2->state = GuiControlState::DISABLED;
 			guiBt2->textureOnDisabled = false;
@@ -380,7 +372,6 @@ bool Scene::Update(float dt)
 			guiBt4->state = GuiControlState::DISABLED;
 			guiBt5->state = GuiControlState::DISABLED;
 
-			// botones nuevos en normal
 
 			changedButtons1 = true;
 		}
@@ -409,9 +400,8 @@ bool Scene::Update(float dt)
 
 		// START / CONTINUE
 		if (activationPreparationTimer) {
-			
+
 			preparationTimer -= deltaTime;
-			//Engine::GetInstance().guiManager.get()->CleanUp();
 
 		}
 
@@ -431,16 +421,16 @@ bool Scene::Update(float dt)
 			minutesTimer = 0;
 			secondsTimer = 0;
 			scorePoints = 0;
-			
+
 		}
 
 		break;
 	case LEVEL1:
-		
+
 		if (!activationPauseMenu) {
-			
+
 			HelpMenu();
-			
+
 			if (!help) {
 				Score();
 				LevelTimer();
@@ -463,7 +453,6 @@ bool Scene::Update(float dt)
 		}
 		else if (activationPauseMenu && changedButtons1 && !activationSettings) {
 
-			/*int width, height;*/
 			Engine::GetInstance().textures->GetSize(pauseMenu, width, height);
 			SDL_Rect dstRect = { 0, 0, width, height };
 			SDL_RenderCopy(Engine::GetInstance().render->renderer, pauseMenu, nullptr, &dstRect);
@@ -485,14 +474,12 @@ bool Scene::Update(float dt)
 		}
 
 		if (activationSettings && !changedButtons2 && changedButtons1) {
-			/*int width, height;*/
+
 			guiBt6->state = GuiControlState::DISABLED;
 			guiBt7->state = GuiControlState::DISABLED;
 			guiBt8->state = GuiControlState::DISABLED;
 			guiBt9->state = GuiControlState::DISABLED;
-	
 
-			// botones nuevos en normal
 			guiCh->state = GuiControlState::NORMAL;
 			guiSl1->state = GuiControlState::NORMAL;
 			guiSl2->state = GuiControlState::NORMAL;
@@ -511,7 +498,6 @@ bool Scene::Update(float dt)
 			guiBt8->state = GuiControlState::NORMAL;
 			guiBt9->state = GuiControlState::NORMAL;
 
-			// cambio de botones
 			guiCh->state = GuiControlState::DISABLED;
 			guiSl1->state = GuiControlState::DISABLED;
 			guiSl2->state = GuiControlState::DISABLED;
@@ -532,7 +518,6 @@ bool Scene::Update(float dt)
 
 			if (preparationTimer <= 0.0f) {
 
-				/*Engine::GetInstance().map.get()->mapLevel = M_LEVEL2;*/
 				state = WIN;
 				preparationTimer = 1.0f;
 				activationPreparationTimer = false;
@@ -550,7 +535,7 @@ bool Scene::Update(float dt)
 			guiBt7->state = GuiControlState::DISABLED;
 			guiBt8->state = GuiControlState::DISABLED;
 			guiBt9->state = GuiControlState::DISABLED;
-			activationPauseMenu = false; 
+			activationPauseMenu = false;
 			Engine::GetInstance().map.get()->mapLevel = M_NO_LEVEL;
 			state = MENU;
 			preparationTimer = 1.0f;
@@ -561,10 +546,9 @@ bool Scene::Update(float dt)
 
 
 		if (player->dead) {
-			//activationPreparationTimer = true;
 
 			if (preparationTimer <= 0.0f) {
-				
+
 
 				Engine::GetInstance().map.get()->mapLevel = M_NO_LEVEL;
 				state = LOSE;
@@ -608,7 +592,6 @@ bool Scene::Update(float dt)
 		break;
 	case LOSE:
 
-		/*int width, height;*/
 		Engine::GetInstance().textures->GetSize(loseScreen, width, height);
 		dstRect = { 0, 0, width, height };
 		SDL_RenderCopy(Engine::GetInstance().render->renderer, loseScreen, nullptr, &dstRect);
@@ -620,7 +603,7 @@ bool Scene::Update(float dt)
 		}
 
 		if (preparationTimer <= 0.0f) {
-			
+
 			player->lookRight = true;
 			player->dead = false;
 			LoadState();
@@ -631,103 +614,14 @@ bool Scene::Update(float dt)
 				Engine::GetInstance().map.get()->mapLevel = M_LEVEL1;
 				Engine::GetInstance().audio.get()->PlayMusic("Assets/Audio/Music/Level1Music.wav", 0.0f);
 			}
-			//else if (state == LEVEL2) {
-			//	Engine::GetInstance().map.get()->mapLevel = M_LEVEL2;
-			//}
 
 			preparationTimer = 1.0f;
 			activationPreparationTimer = false;
-			
+
 		}
 
 		break;
-		//case LEVEL2:
-
-	//	HelpMenu();
-	//	HandleCamera();
-
-	//	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-	//		activationPauseMenu = !activationPauseMenu;
-	//	}
-	//	if (activationPauseMenu) {
-
-	//		/*int width, height;*/
-	//		Engine::GetInstance().textures->GetSize(pauseMenu, width, height);
-	//		dstRect = { 0, 0, width, height };
-	//		SDL_RenderCopy(Engine::GetInstance().render->renderer, pauseMenu, nullptr, &dstRect);
-
-	//		if (activationSettings) {
-	//			/*int width, height;*/
-	//			Engine::GetInstance().textures->GetSize(menuScreen, width, height);
-	//			dstRect = { 0, 0, width, height };
-	//			SDL_RenderCopy(Engine::GetInstance().render->renderer, menuScreen, nullptr, &dstRect);
-	//		}
-	//	}
-
-	//	if (activationPreparationTimer) {
-
-	//		preparationTimer -= deltaTime;
-	//		lastState = LEVEL2;
-
-	//	}
-
-	//	if (finishLevel) {
-
-	//		activationPreparationTimer = true;
-
-	//		if (preparationTimer <= 0.0f) {
-
-	//			Engine::GetInstance().map.get()->mapLevel = M_NO_LEVEL;
-	//			state = WIN;
-	//			preparationTimer = 1.0f;
-	//			activationPreparationTimer = false;
-	//			finishLevel = false;
-
-	//		}
-
-	//	}
-
-	//	if (player->dead) {
-	//		activationPreparationTimer = true;
-
-	//		if (preparationTimer <= 0.0f) {
-
-	//			Engine::GetInstance().map.get()->mapLevel = M_NO_LEVEL;
-	//			state = LOSE;
-	//			preparationTimer = 1.0f;
-	//			activationPreparationTimer = false;
-	//		}
-	//	}
-
-	//	break;
 	}
-
-	////Get mouse position and obtain the map coordinate
-	//int scale = Engine::GetInstance().window.get()->GetScale();
-	//Vector2D mousePos = Engine::GetInstance().input.get()->GetMousePosition();
-	//Vector2D mouseTile = Engine::GetInstance().map.get()->WorldToMap(mousePos.getX() - Engine::GetInstance().render.get()->camera.x / scale,
-	//	mousePos.getY() - Engine::GetInstance().render.get()->camera.y / scale);
-
-	////Render a texture where the mouse is over to highlight the tile, use the texture 'mouseTileTex'
-	//Vector2D highlightTile = Engine::GetInstance().map.get()->MapToWorld(mouseTile.getX(), mouseTile.getY());
-	//SDL_Rect rect = { 0,0,32,32 };
-	//Engine::GetInstance().render.get()->DrawTexture(mouseTileTex,
-	//	highlightTile.getX(),
-	//	highlightTile.getY(),
-	//	&rect);
-
-	//// saves the tile pos for debugging purposes
-	//if (mouseTile.getX() >= 0 && mouseTile.getY() >= 0 || once) {
-	//	tilePosDebug = "[" + std::to_string((int)mouseTile.getX()) + "," + std::to_string((int)mouseTile.getY()) + "] ";
-	//	once = true;
-	//}
-	//if (createBullet) {
-	//	Bullet* bullet = (Bullet*)Engine::GetInstance().entityManager->CreateEntity(EntityType::BULLET);
-	//	bullet->SetParameters(configParameters.child("entities").child("bullet"));
-	//	bullet->SetPosition(player->position);
-	//	bullet->speedX = 5.0f;
-	//	createBullet = false;
-	//}
 
 	return true;
 }
@@ -851,33 +745,6 @@ void Scene::LoadState() {
 
 	//enemies
 
-	//int i = 0;
-	//int j = 0;
-
-	//for (pugi::xml_node enemyNode = configParameters.child("entities").child("enemies").child("enemy"); enemyNode; enemyNode = enemyNode.next_sibling("enemy"))
-	//{
-
-	//	if (std::string(enemyNode.attribute("name").as_string()) == "MetallC15" && enemyNode.attribute("dead").as_bool() == false) {
-
-	//		Vector2D metallC15Pos = Vector2D(enemyNode.attribute("x").as_int(), enemyNode.attribute("y").as_int());
-	//		metallC15List[i]->SetPosition(metallC15Pos);
-	//		i++;
-
-
-	//	}
-
-	//	if (std::string(enemyNode.attribute("name").as_string()) == "BattonBone" && enemyNode.attribute("dead").as_bool() == false) {
-
-	//		Vector2D battonBonePos = Vector2D(enemyNode.attribute("x").as_int(), enemyNode.attribute("y").as_int());
-	//		battonBoneList[j]->SetPosition(battonBonePos);
-	//		j++;
-
-	//	}
-
-	//	if (i < metallC15List.size()) i = 0;
-	//	else if (j < battonBoneList.size()) j = 0;
-
-	//}
 
 
 }
@@ -905,8 +772,6 @@ void Scene::SaveState() {
 	sceneNode.child("entities").child("player").attribute("y").set_value(player->GetPosition().getY() - 10);
 	sceneNode.child("entities").child("player").attribute("ammo").set_value(player->ammo);
 	sceneNode.child("entities").child("player").attribute("life").set_value(player->life);
-	//player->ammo = (sceneNode.child("entities").child("player").attribute("ammo").as_int());
-	//player->life = (sceneNode.child("entities").child("player").attribute("life").as_int());
 
 	// Game
 	sceneNode.child("currentGame").attribute("score").set_value(scorePoints);
@@ -914,37 +779,7 @@ void Scene::SaveState() {
 	sceneNode.child("currentGame").attribute("second").set_value(secondsTimer);
 	sceneNode.child("currentGame").attribute("gameSaved").set_value(stateSaved);
 	sceneNode.child("entities").child("player").attribute("ammo").set_value(player->ammo);
-	scorePoints = (sceneNode.child("currentGame").attribute("score").as_int());
-	minutesTimer = (sceneNode.child("currentGame").attribute("minute").as_int());
-	secondsTimer = (sceneNode.child("currentGame").attribute("second").as_int());
-	stateSaved = (sceneNode.child("currentGame").attribute("gameSaved").as_bool());
-	//enemies
 
-	//int i = 0;
-	//int j = 0;
-
-	//for (pugi::xml_node enemyNode = configParameters.child("entities").child("enemies").child("enemy"); enemyNode; enemyNode = enemyNode.next_sibling("enemy"))
-	//{
-
-	//	if (std::string(enemyNode.attribute("name").as_string()) == "MetallC15" && metallC15List[i]->deleted == true) {
-
-	//		sceneNode.child("entities").child("enemies").child("MetallC15").attribute("dead").set_value(true);
-	//		i++;
-
-
-	//	}
-
-	//	if (std::string(enemyNode.attribute("name").as_string()) == "BattonBone" && battonBoneList[i]->deleted == true) {
-
-	//		sceneNode.child("entities").child("enemies").child("BattonBone").attribute("dead").set_value(true);
-	//		j++;
-
-	//	}
-
-	//	if (i < metallC15List.size()) i = 0;
-	//	else if (j < battonBoneList.size()) j = 0;
-
-	//}
 
 	//Saves the modifications to the XML 
 	loadFile.save_file("config.xml");
@@ -1027,7 +862,6 @@ void Scene::HelpMenu() {
 		Engine::GetInstance().textures->GetSize(helpMenu, width, height);
 		SDL_Rect dstRect = { 0, 0, width, height };
 
-		// Crea la forma del rectangulo donde estara la textura
 		SDL_RenderCopy(Engine::GetInstance().render->renderer, helpMenu, nullptr, &dstRect);
 
 
@@ -1064,10 +898,9 @@ void Scene::LevelTimer() {
 		minutesTimer++;
 	}
 
-	// Formatear el temporizador en formato "MM:SS"
+	// "MM:SS"
 	sprintf_s(timer, "TIME: %02i:%02i", minutesTimer, (int)secondsTimer);
 
-	// Mostrar el temporizador (usar el método de renderizado)
 	Engine::GetInstance().render.get()->DrawText(timer, 1000, 20, strlen(timer) * 20, 40);
 
 
@@ -1077,12 +910,9 @@ void Scene::Score() {
 
 	char score[20];
 
-	// Formatear el temporizador en formato "MM:SS"
 	sprintf_s(score, "SCORE: %i", scorePoints);
 
-	// Mostrar el temporizador (usar el método de renderizado)
 	Engine::GetInstance().render.get()->DrawText(score, 600, 20, strlen(score) * 20, 40);
-
 
 }
 

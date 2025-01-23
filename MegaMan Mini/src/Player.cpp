@@ -22,29 +22,23 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	//L03: TODO 2: Initialize Player parameters
-	/*position = Vector2D(0, 0);*/
+
 	return true;
 }
 
 bool Player::Start() {
 
-	// Cargar la textura del jugador desde los parámetros
 	texture = Engine::GetInstance().textures.get()->Load(parameters.attribute("texture").as_string());
 
-	// Inicializar posición
 	position.setX(parameters.attribute("x").as_int());
 	position.setY(parameters.attribute("y").as_int());
 
-	// Inicializar ancho y alto de la textura
 	texW = parameters.attribute("w").as_int();
 	texH = parameters.attribute("h").as_int();
 
-	// Inicializar valores de vida y munición
 	life = parameters.attribute("life").as_int();
 	ammo = parameters.attribute("ammo").as_int();
 
-	// Cargar animaciones desde los parámetros
 	idle.LoadAnimations(parameters.child("animations").child("idle"));
 	idleL.LoadAnimations(parameters.child("animations").child("idleL"));
 	run.LoadAnimations(parameters.child("animations").child("run"));
@@ -58,7 +52,6 @@ bool Player::Start() {
 	idleShoot.LoadAnimations(parameters.child("animations").child("idleShoot"));
 	idleShootL.LoadAnimations(parameters.child("animations").child("idleShootL"));
 
-	// Inicializar cuerpo físico del jugador
 	pbody = Engine::GetInstance().physics.get()->CreateCircle(
 		static_cast<int>(position.getX()),
 		static_cast<int>(position.getY()),
@@ -66,22 +59,17 @@ bool Player::Start() {
 		bodyType::DYNAMIC
 	);
 
-	// Asignar el listener del cuerpo físico
 	pbody->listener = this;
 
-	// Asignar tipo de colisión al cuerpo físico
 	pbody->ctype = ColliderType::PLAYER;
 
-	// Configurar gravedad del cuerpo si está desactivada en los parámetros
 	if (!parameters.attribute("gravity").as_bool())
 	{
 		pbody->body->SetGravityScale(0);
 	}
 
-	// Cargar las barras de información del jugador
 	infoBars = Engine::GetInstance().textures.get()->Load("Assets/Textures/Player/infoBars.png");
 
-	// Inicializar efectos de sonido
 	deadFx = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/DeadFx.wav");
 	punchFx = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/PunchFx.ogg");
 	levelCompletedFx = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/LevelCompletedFx.wav");
@@ -92,13 +80,11 @@ bool Player::Start() {
 	shotFx = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/ShotFx.wav");
 	hitFx = Engine::GetInstance().audio.get()->LoadFx("Assets/Audio/Fx/HitFx.wav");
 
-	// Inicializar estados del jugador
 	attack = false;
 	dead = false;
 	godmode = false;
 	lookRight = true;
 
-	// Inicializar variables de colisión
 	hit = false;
 	hitRepetitions = 0;
 	hitTimer = 0;
@@ -106,15 +92,13 @@ bool Player::Start() {
 	maxHitRepetitions = 32;
 	hitDuration = 50;
 
-	// Inicializar temporizadores
 	punchTimer = 0;
 	shootTimer = 0.0f;
 	timerFinish = 0;
 
-	// Inicializar estados de disparo
 	shoot = false;
 
-	// Inicializar checkpoints
+	// Checkpoints
 	checkpoints[0] = { 100,  465 };
 	checkpoints[1] = { 1416, 593 };
 	checkpoints[2] = { 2557, 369 };
@@ -129,10 +113,7 @@ bool Player::Update(float dt)
 {
 	ZoneScoped;
 
-	//if (Engine::GetInstance().scene.get()->pauseEntities){
-	//}
-	//else if ()
-	// L08 TODO 5: Add physics to the player - updated player position using physics
+
 	if (Engine::GetInstance().scene.get()->state == LEVEL1 || Engine::GetInstance().scene.get()->state == LEVEL2) {
 	
 		b2Vec2 velocity;
@@ -368,7 +349,7 @@ bool Player::Update(float dt)
 			hit = false;
 			life = -4;
 			Engine::GetInstance().scene.get()->LoadState();
-			/*Engine::GetInstance().audio.get()->PlayFx(deadFx);*/
+
 		}
 		else if (life <= 0) {
 			hit = false;
@@ -397,25 +378,25 @@ bool Player::Update(float dt)
 		// Hit feature
 		if (hit && !dead) {
 			if (hitTimer == 0) {
-				// Inicia el temporizador de hit
+				
 				hitTimer = SDL_GetTicks();
 			}
 
-			// Alterna la visibilidad del personaje cada `hitDuration` milisegundos
+			
 			if (SDL_GetTicks() - hitTimer >= hitDuration) {
-				isVisible = !isVisible; // Alterna entre visible e invisible
+				isVisible = !isVisible;
 				hitRepetitions++;
 
-				// Reinicia el temporizador para el siguiente parpadeo
+				
 				hitTimer = SDL_GetTicks();
 			}
 
-			// Termina el estado de "hit" después de `maxHitRepetitions` parpadeos
+			
 			if (hitRepetitions >= maxHitRepetitions) {
 				hit = false;
 				hitRepetitions = 0;
-				isVisible = true; // Asegúrate de que el personaje sea visible al terminar
-				hitTimer = 0;     // Reinicia el temporizador
+				isVisible = true; 
+				hitTimer = 0;     
 			}
 		}
 
@@ -438,7 +419,7 @@ bool Player::CleanUp()
 
 void Player::UpdateRender() {
 
-	float scale = 3.0f; // Escala de ancho (1.5x)
+	float scale = 3.0f; 
 
 	if (!Engine::GetInstance().scene.get()->help) {
 		
@@ -463,7 +444,6 @@ void Player::UpdateRender() {
 
 		// Life content
 		SDL_Rect lifeContentDstRect = { 24, 24 + (32 * scale) - (section.h * scale), (int)(section.w * scale), (int)(section.h * scale) };
-		/*Engine::GetInstance().render.get()->DrawTexture(infoBars, 15 + 3, 15 + 3, &section);*/
 		Engine::GetInstance().render.get()->DrawTexture2(infoBars, &section, &lifeContentDstRect);
 
 		section.x = 22;
@@ -472,7 +452,6 @@ void Player::UpdateRender() {
 		section.h = 76;
 		// Ammo bar
 		SDL_Rect ammoBarDstRect = { 65, 15, (int)(section.w * scale), (int)(section.h * scale) };
-		//Engine::GetInstance().render.get()->DrawTexture(infoBars, 30, 15, &section);
 		Engine::GetInstance().render.get()->DrawTexture2(infoBars, &section, &ammoBarDstRect);
 
 		section.x = 36;
@@ -487,7 +466,6 @@ void Player::UpdateRender() {
 
 		// Ammo content
 		SDL_Rect ammoContentDstRect = { 74,  24 + (56 * scale) - (section.h * scale), (int)(section.w * scale), (int)(section.h * scale) };
-		//Engine::GetInstance().render.get()->DrawTexture(infoBars, 30 + 3, 30 + 3, &section);
 		Engine::GetInstance().render.get()->DrawTexture2(infoBars, &section, &ammoContentDstRect);
 	}
 
@@ -499,8 +477,6 @@ void Player::UpdateRender() {
 	}
 
 	
-	printf("X: %f\n", position.getX());
-	printf("Y: %f\n", position.getY());
 }
 
 // L08 TODO 6: Define OnCollision function for the player. 
@@ -508,31 +484,32 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		// Reset the jump bool when touching the ground
+		
 		isJumping = false;
 		break;
+	
 	case ColliderType::AMMO_CHARGE:
-		LOG("Collision AMMO CHARGE");
+		
 		Engine::GetInstance().audio.get()->PlayFx(ammoCollectedFx);
 		ammo += 2;
 		Engine::GetInstance().scene.get()->scorePoints += 50;
 		break;
+	
 	case ColliderType::LIFE_CHARGE:
-		LOG("Collision AMMO CHARGE");
-
+		
 		Engine::GetInstance().audio.get()->PlayFx(lifeCollectedFx);
 		life += 4;
 		Engine::GetInstance().scene.get()->scorePoints += 50;
 		break;
+	
 	case ColliderType::POINTS_CONTAINER:
-		LOG("Collision POINTS CONTAINER");
 
 		Engine::GetInstance().audio.get()->PlayFx(pointCollectedFx);
 		Engine::GetInstance().scene.get()->scorePoints += 100;
 		break;
+	
 	case ColliderType::ENEMY:
-		LOG("Collision ENEMY");
+
 		// If the player attacks the enemy is deleted 
 		if (attack) {
 			Engine::GetInstance().scene.get()->scorePoints += 300;
@@ -549,13 +526,16 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			Engine::GetInstance().audio.get()->PlayFx(hurtFx);
 		}
 		break;
+
 	case ColliderType::CHECKPOINT:
-		LOG("Collision CHECKPOINT");
+
 		Engine::GetInstance().scene.get()->SaveState();
 		break;
+
 	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
+
 		break;
+
 	default:
 		break;
 	}

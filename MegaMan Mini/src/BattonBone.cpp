@@ -188,14 +188,6 @@ bool BattonBone::Update(float dt)
 		Engine::GetInstance().render.get()->DrawTexture(texture, (int)position.getX() - texH / 2, (int)position.getY(), &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 
-		//If enemy is killed
-		if (pbody->deleted) {
-			Engine::GetInstance().physics.get()->DeletePhysBody(pbody);
-			Engine::GetInstance().textures.get()->UnLoad(texture);
-			//dead = true;
-			//deleted = true;
-		}
-
 		// Draw pathfinding on debug
 		if (Engine::GetInstance().physics.get()->debug) {
 			pathfinding->DrawPath();
@@ -232,42 +224,22 @@ void BattonBone::ResetPath() {
 	pathfinding->ResetPath(tilePos);
 }
 
-//void BattonBone::OnCollision(PhysBody* physA, PhysBody* physB) {
-//	switch (physB->ctype)
-//	{
-//	case ColliderType::PLAYER:
-//		LOG("Collided with player - DESTROY");
-//		Engine::GetInstance().entityManager.get()->DestroyEntity(this);
-//		break;
-//	}
-//}
-//
-//void BattonBone::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
-//{
-//	switch (physB->ctype)
-//	{
-//	case ColliderType::PLAYER:
-//		LOG("Collision player");
-//		break;
-//	}
-//}
+void BattonBone::OnCollision(PhysBody* physA, PhysBody* physB) {
+	switch (physB->ctype)
+	{
+	case ColliderType::BULLET:
+		CleanUp();
 
-//void BattonBone::OnCollision(PhysBody* physA, PhysBody* physB) {
-//	switch (physB->ctype)
-//	{
-//	case ColliderType::PLAYER:
-//		LOG("Collided with player - DESTROY");
-//		Engine::GetInstance().entityManager.get()->DestroyEntity(this);
-//		break;
-//	}
-//}
-//
-//void BattonBone::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
-//{
-//	switch (physB->ctype)
-//	{
-//	case ColliderType::PLAYER:
-//		LOG("Collision player");
-//		break;
-//	}
-//}
+		break;
+
+	case ColliderType::PLAYER:
+		if (Engine::GetInstance().scene.get()->player->attack) {
+			CleanUp();
+		}
+		
+		break;
+	}
+}
+
+
+

@@ -11,7 +11,7 @@
 
 AmmoCharger::AmmoCharger() : Entity(EntityType::AMMO_CHARGER)
 {
-	/*name = "AmmoCharger";*/
+
 }
 
 AmmoCharger::~AmmoCharger() {}
@@ -63,14 +63,13 @@ bool AmmoCharger::CleanUp()
 {
 	Engine::GetInstance().physics.get()->DeletePhysBody(pbody);
 	Engine::GetInstance().textures.get()->UnLoad(texture);
-	//Engine::GetInstance().entityManager.get()->DestroyEntity(this);
 	return true;
 }
 
 void AmmoCharger::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	if (physB->ctype == ColliderType::PLAYER) {
-		//Engine::GetInstance().textures.get()->UnLoad(texture);
+	
 		CleanUp();
 	}
 

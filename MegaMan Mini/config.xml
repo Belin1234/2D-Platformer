@@ -18,7 +18,7 @@
 		<currentGame gameSaved="false" minute="0" second="0" score="0" />
 		<map path="Assets/Maps/" name="MegaManMini.tmx" />
 		<entities>
-			<player x="100" y="455" w="32" h="32" life="16" ammo="4" texture="Assets/Textures/player/Animations.png" gravity="true">
+			<player x="100" y="455" w="32" h="32" life="16" ammo="0" texture="Assets/Textures/player/Animations.png" gravity="true">
 				<animations>
 					<idle loop="true" speed="0.02">
 						<frame x="0" y="0" w="32" h="34" />

@@ -11,7 +11,7 @@
 
 LifeCharger::LifeCharger() : Entity(EntityType::LIFE_CHARGER)
 {
-	/*name = "LifeCharger";*/
+
 }
 
 LifeCharger::~LifeCharger() {}
@@ -63,7 +63,6 @@ bool LifeCharger::CleanUp()
 {
 	Engine::GetInstance().physics.get()->DeletePhysBody(pbody);
 	Engine::GetInstance().textures.get()->UnLoad(texture);
-	//Engine::GetInstance().entityManager.get()->DestroyEntity(this);
 	
 	return true;
 }
@@ -71,7 +70,6 @@ bool LifeCharger::CleanUp()
 void LifeCharger::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	if (physB->ctype == ColliderType::PLAYER) {
-		//Engine::GetInstance().textures.get()->UnLoad(texture);
 		CleanUp();
 	}
 

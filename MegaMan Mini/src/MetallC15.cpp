@@ -219,8 +219,7 @@ bool MetallC15::CleanUp()
 	
 	Engine::GetInstance().physics.get()->DeletePhysBody(pbody);
 	Engine::GetInstance().textures.get()->UnLoad(texture);
-	//delete pathfinding;
-	
+
 
 	return true;
 }
@@ -248,31 +247,15 @@ void MetallC15::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::BULLET:
-		LOG("Collided with player - DESTROY");
-		//Engine::GetInstance().audio.get()->PlayFx(hitFx);
-		//Engine::GetInstance().entityManager.get()->DestroyEntity(this);
 		CleanUp();
-		/*physA->deleted = true;*/
 		break;
 
 	case ColliderType::PLAYER:
 		if (Engine::GetInstance().scene.get()->player->attack) {
-			//Engine::GetInstance().audio.get()->PlayFx(hitFx);
 			CleanUp();
 		}
-		LOG("Collided with player - DESTROY");
-		//Engine::GetInstance().entityManager.get()->DestroyEntity(this);
-		/*physA->deleted = true;*/
+
 		break;
 	}
 }
 
-//void MetallC15::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
-//{
-//	switch (physB->ctype)
-//	{
-//	case ColliderType::PLAYER:
-//		LOG("Collision player");
-//		break;
-//	}
-//}

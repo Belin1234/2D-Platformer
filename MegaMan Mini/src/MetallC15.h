@@ -33,14 +33,10 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//void OnCollisionEnd(PhysBody* physA, PhysBody* physB);
-
 
 public:
 
 private:
-
-	//int hitFx;
 
 	SDL_Texture* texture;
 	const char* texturePath;

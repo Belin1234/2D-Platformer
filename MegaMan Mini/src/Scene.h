@@ -106,7 +106,6 @@ private:
 	Uint32 lastTick;
 	float deltaTime;
 
-	//SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
 	std::string tilePosDebug = "[0,0]";
 	bool once = false;
